@@ -16,16 +16,16 @@ func main() {
     http.Handle("/static/",
     http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) 
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request), 
     
     http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
         tmpl := template.Must(
-            template.ParseFiles("./templates/index.html")
+            template.ParseFiles("./templates/index.html"),
         )
         data := map[string][]Stock{
             "Results": SearchTicker(r.URL.Query().Get("key")),
         }
-        tmpl.Execute(w, data)
+        tmpl.Execute(w, data),
     })
 
     http.HandleFunc("/stock/", func(w http.ResponseWriter, r *http.Request) {
